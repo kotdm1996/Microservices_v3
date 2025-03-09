@@ -26,18 +26,10 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6.11.0
         with:
-          context: .
-          file: |
-            ./udagram-api-feed/Dockerfile
-            ./udagram-api-user/Dockerfile
-            ./udagram-api-reverseproxy/Dockerfile
-            ./udagram-frontend/Dockerfile
+          context: ${{ matrix.directory }}
+          file: ${{ matrix.directory }}/Dockerfile
           push: true
-          tags: |
-            dimahockey/udagram-api-feed:latest,dimahockey/udagram-api-feed:${{github.run_number}}
-            dimahockey/udagram-api-user:latest,dimahockey/udagram-api-user:${{github.run_number}}
-            dimahockey/udagram-reverseproxy:latest,dimahockey/udagram-reverseproxy:${{github.run_number}}
-            dimahockey/udagram-frontend:latest,dimahockey/udagram-frontend:${{github.run_number}}            
+          tags: dimahockey/${{ matrix.directory }}:latest,dimahockey/${{ matrix.directory }}:${{github.run_number}}
           build-args: |            
             POSTGRES_USERNAME_ARG=${{ secrets.POSTGRESUID }}
             POSTGRES_PASSWORD_ARG=${{ secrets.POSTGRESPWD }}
@@ -48,5 +40,8 @@ jobs:
             AWS_PROFILE_ARG=${{ secrets.AWS_PROFILE }}
             JWT_SECRET_ARG=${{ secrets.JWT_SECRET }}
             URL_ARG=${{ secrets.URL }}
-          
+        strategy:
+          matrix:
+            directory: ${{ fromJson(steps.find_dockerfiles.outputs.directories) }}
+   
         #run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
