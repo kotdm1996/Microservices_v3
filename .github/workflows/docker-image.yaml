@@ -26,37 +26,13 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6.11.0
         with:
-          context: ./udagram-api-feed
+          context: .
           push: true
-          tags: dimahockey/udagram-api-feed:latest,dimahockey/udagram-api-feed:${{github.run_number}}
-          build-args: |            
-            POSTGRES_USERNAME_ARG=${{ secrets.POSTGRESUID }}
-            POSTGRES_PASSWORD_ARG=${{ secrets.POSTGRESPWD }}
-            POSTGRES_HOST_ARG=${{ secrets.POSTGRES_HOST }}
-            POSTGRES_DB_ARG=${{ secrets.POSTGRES_DB }}
-            AWS_BUCKET_ARG=${{ secrets.AWS_BUCKET }}
-            AWS_REGION_ARG=${{ secrets.AWS_REGION }}
-            AWS_PROFILE_ARG=${{ secrets.AWS_PROFILE }}
-            JWT_SECRET_ARG=${{ secrets.JWT_SECRET }}
-            URL_ARG=${{ secrets.URL }}
-
-          context: ./udagram-api-user
-          push: true
-          tags: dimahockey/udagram-api-user:latest,dimahockey/udagram-api-user:${{github.run_number}}
-          build-args: |            
-            POSTGRES_USERNAME_ARG=${{ secrets.POSTGRESUID }}
-            POSTGRES_PASSWORD_ARG=${{ secrets.POSTGRESPWD }}
-            POSTGRES_HOST_ARG=${{ secrets.POSTGRES_HOST }}
-            POSTGRES_DB_ARG=${{ secrets.POSTGRES_DB }}
-            AWS_BUCKET_ARG=${{ secrets.AWS_BUCKET }}
-            AWS_REGION_ARG=${{ secrets.AWS_REGION }}
-            AWS_PROFILE_ARG=${{ secrets.AWS_PROFILE }}
-            JWT_SECRET_ARG=${{ secrets.JWT_SECRET }}
-            URL_ARG=${{ secrets.URL }} 
-          
-          context: ./udagram-reverseproxy
-          push: true
-          tags: dimahockey/udagram-reverseproxy:latest,dimahockey/udagram-reverseproxy:${{github.run_number}}
+          tags: |
+            dimahockey/udagram-api-feed:latest,dimahockey/udagram-api-feed:${{github.run_number}}
+            dimahockey/udagram-api-user:latest,dimahockey/udagram-api-user:${{github.run_number}}
+            dimahockey/udagram-reverseproxy:latest,dimahockey/udagram-reverseproxy:${{github.run_number}}
+            dimahockey/udagram-frontend:latest,dimahockey/udagram-frontend:${{github.run_number}}            
           build-args: |            
             POSTGRES_USERNAME_ARG=${{ secrets.POSTGRESUID }}
             POSTGRES_PASSWORD_ARG=${{ secrets.POSTGRESPWD }}
@@ -68,17 +44,4 @@ jobs:
             JWT_SECRET_ARG=${{ secrets.JWT_SECRET }}
             URL_ARG=${{ secrets.URL }}
           
-          context: ./udagram-frontend
-          push: true
-          tags: dimahockey/udagram-frontend:latest,dimahockey/udagram-frontend:${{github.run_number}}
-          build-args: |            
-            POSTGRES_USERNAME_ARG=${{ secrets.POSTGRESUID }}
-            POSTGRES_PASSWORD_ARG=${{ secrets.POSTGRESPWD }}
-            POSTGRES_HOST_ARG=${{ secrets.POSTGRES_HOST }}
-            POSTGRES_DB_ARG=${{ secrets.POSTGRES_DB }}
-            AWS_BUCKET_ARG=${{ secrets.AWS_BUCKET }}
-            AWS_REGION_ARG=${{ secrets.AWS_REGION }}
-            AWS_PROFILE_ARG=${{ secrets.AWS_PROFILE }}
-            JWT_SECRET_ARG=${{ secrets.JWT_SECRET }}
-            URL_ARG=${{ secrets.URL }} 
         #run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
