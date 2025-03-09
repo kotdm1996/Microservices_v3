@@ -27,6 +27,11 @@ jobs:
         uses: docker/build-push-action@v6.11.0
         with:
           context: .
+          file: |
+            ./udagram-api-feed/Dockerfile
+            ./udagram-api-user/Dockerfile
+            ./udagram-api-reverseproxy/Dockerfile
+            ./udagram-frontend/Dockerfile
           push: true
           tags: |
             dimahockey/udagram-api-feed:latest,dimahockey/udagram-api-feed:${{github.run_number}}
