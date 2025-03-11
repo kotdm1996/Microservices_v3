@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: env-config
+data:
+  AWS_BUCKET: udagram-dktest-20250304
+  AWS_PROFILE: default
+  AWS_REGION: us-east-1
+  POSTGRES_DB: postgres
+  POSTGRES_HOST: db-postgre-v13-dktest.cyjv2db2qiit.us-east-1.rds.amazonaws.com
+  URL: http://localhost:8100

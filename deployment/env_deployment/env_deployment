@@ -1,0 +1,13 @@
+dima@DESKTOP-COBCHQI MINGW64 ~/udacity/monolith/Microservices_v3/deployment (main)
+$ kubectl apply -f aws-config-deploy.yaml
+configmap/env-config created
+
+dima@DESKTOP-COBCHQI MINGW64 ~/udacity/monolith/Microservices_v3/deployment (main)
+$ kubectl apply -f aws-secret.yaml
+secret/aws-secret created
+
+dima@DESKTOP-COBCHQI MINGW64 ~/udacity/monolith/Microservices_v3/deployment (main)
+$ kubectl apply -f postgres-secret.yaml
+secret/postgres-secret created
+
+dima@DESKTOP-COBCHQI MINGW64 ~/udacity/monolith/Microservices_v3/deployment (main)
