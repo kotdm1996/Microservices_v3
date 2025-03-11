@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-user
+  labels:
+    service: backend-user
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-user
+  template:
+    metadata:
+      labels:
+        app: backend-user
+    spec:
+      containers:
+      - name: backend-user
+        image: dimahockey/udagram-api-user:latest
+        ports:
+          - containerPort: 8080
+        envFrom:          
+          - configMapRef:
+              name: env-config
+          - secretRef:
+              name: 
+                aws-secret
+          - secretRef:
+              name:
+                postgres-secret
+        resources:
+          requests:
+            cpu: "500m"    # Minimum CPU allocation (100 milliCPU)
+            memory: "512Mi" # Minimum memory allocation (128 MiB)
+          limits:
+            cpu: "500m"    # Maximum CPU allocation (500 milliCPU)
+            memory: "1024Mi" # Maximum memory allocation (512 MiB)
+      

@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-feed
+  labels:
+    service: backend-feed
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-feed
+  template:
+    metadata:
+      labels:
+        app: backend-feed
+    spec:
+      containers:
+      - name: backend-feed
+        image: dimahockey/udagram-api-feed:latest
+        ports:
+        - containerPort: 8080
+        envFrom:
+          - configMapRef:
+              name: env-config
+          - secretRef:
+              name:
+                aws-secret
+          - secretRef:
+              name:
+                postgres-secret
+        resources:
+          requests:
+            cpu: "500m"  # Request 100 milliCPU (0.1 CPU)
+            memory: "1024Mi"  # Request 128 MiB of memory
+          limits:
+            cpu: "500m"  # Limit to 500 milliCPU (0.5 CPU)
+            memory: "2048Mi"  # Limit to 512 MiB of memory
+      
