@@ -10,6 +10,7 @@ import {V0_USER_MODELS} from './controllers/v0/model.index';
 
 
 (async () => {  
+  console.debug('DKTEST ==> 1')
   await sequelize.addModels(V0_USER_MODELS);
 
   console.debug("Initialize database connection...");
@@ -19,7 +20,7 @@ import {V0_USER_MODELS} from './controllers/v0/model.index';
   const port = process.env.PORT || 8080;
 
   app.use(bodyParser.json());
-
+  console.debug('DKTEST ==> 2')
   // We set the CORS origin to * so that we don't need to
   // worry about the complexities of CORS this lesson. It's
   // something that will be covered in the next course.
@@ -33,7 +34,8 @@ import {V0_USER_MODELS} from './controllers/v0/model.index';
     preflightContinue: true,
     origin: '*',
   }));
-
+  
+  console.debug('DKTEST ==> 3')
   app.use('/api/v0/', IndexRouter);
 
   // Root URI call

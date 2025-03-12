@@ -60,7 +60,8 @@ router.post('/',
     async (req: Request, res: Response) => {
       const caption = req.body.caption;
       const fileName = req.body.url; // same as S3 key name
-
+      
+      console.debug( 'feed.router.ts()' );
       if (!caption) {
         return res.status(400).send({message: 'Caption is required or malformed.'});
       }
