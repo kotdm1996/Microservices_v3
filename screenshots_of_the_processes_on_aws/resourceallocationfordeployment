@@ -1,0 +1,8 @@
+causing pods to crash
+resources:
+          requests:
+            cpu: "500m"    # Minimum CPU allocation (100 milliCPU)
+            memory: "512Mi" # Minimum memory allocation (128 MiB)
+          limits:
+            cpu: "500m"    # Maximum CPU allocation (500 milliCPU)
+            memory: "1024Mi" # Maximum memory allocation (512 MiB)

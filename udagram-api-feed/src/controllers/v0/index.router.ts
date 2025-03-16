@@ -5,8 +5,7 @@ const router: Router = Router();
 
 router.use('/feed', FeedRouter);
 
-router.get('/', async (req: Request, res: Response) => {
-  console.debug( 'DKTEST ==> index.router.ts router.get()' );
+router.get('/', async (req: Request, res: Response) => {  
   res.send(`V0`);
 });
 
