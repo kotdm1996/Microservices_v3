@@ -16,6 +16,13 @@ spec:
     spec:
       containers:
       - name: udagram-frontend
-        image: dimahockey/udagram-frontend:15
+        image: dimahockey/udagram-frontend:17
         ports:
-        - containerPort: 80        
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: "500m"    # Minimum CPU allocation (100 milliCPU)
+            memory: "4096Mi" # Minimum memory allocation (128 MiB)
+          limits:
+            cpu: "500m"    # Maximum CPU allocation (500 milliCPU)
+            memory: "4096Mi" # Maximum memory allocation (512 MiB)
