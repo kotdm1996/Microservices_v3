@@ -1,6 +1,14 @@
 ### Build
 FROM beevelop/ionic:latest AS ionic
 
+## Create app directory
+WORKDIR /usr/src/app
+## Install app dependencies
+## A wildcard is used to ensure both package.json AND package-lock.json are copied
+COPY package*.json ./
+RUN npm ci
+## Bundle app source
+COPY . .
 ARG POSTGRES_USERNAME_ARG
 ARG POSTGRES_PASSWORD_ARG
 ARG POSTGRES_HOST_ARG
@@ -21,14 +29,6 @@ ENV AWS_PROFILE=$AWS_PROFILE_ARG
 ENV JWT_SECRET=$JWT_SECRET_ARG
 ENV URL=$URL_ARG
 
-## Create app directory
-WORKDIR /usr/src/app
-## Install app dependencies
-## A wildcard is used to ensure both package.json AND package-lock.json are copied
-COPY package*.json ./
-RUN npm ci
-## Bundle app source
-COPY . .
 RUN ionic build
 ### Run 
 FROM nginx:alpine
