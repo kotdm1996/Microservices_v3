@@ -14,10 +14,11 @@ jobs:
     strategy:
       matrix:
         image:
-          - udagram-api-feed
-          - udagram-api-user
-          - udagram-reverseproxy
-          - udagram-frontend      
+          - udagram-frontend
+          #- udagram-api-feed
+          #- udagram-api-user
+          #- udagram-reverseproxy
+                
 
     steps:
     # Runs a single command using the runners shell .
