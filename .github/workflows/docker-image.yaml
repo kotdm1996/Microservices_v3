@@ -14,9 +14,9 @@ jobs:
     strategy:
       matrix:
         image:
-          - udagram-frontend
-          #- udagram-api-feed
-          #- udagram-api-user
+          #- udagram-frontend
+          - udagram-api-feed
+          - udagram-api-user
           #- udagram-reverseproxy
                 
 
