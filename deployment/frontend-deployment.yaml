@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: udagram-frontend
-        image: dimahockey/udagram-frontend:22
+        image: dimahockey/udagram-frontend:39
         ports:
         - containerPort: 80
         

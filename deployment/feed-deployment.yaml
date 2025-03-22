@@ -1,11 +1,13 @@
 apiVersion: apps/v1
+#apiVersion: v1
 kind: Deployment
+#kind: Pod
 metadata:
   name: backend-feed
   labels:
     service: backend-feed
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: backend-feed
@@ -14,18 +16,44 @@ spec:
       labels:
         app: backend-feed
     spec:
-      containers:
+      initContainers:
+      - name: init-aws-credentials
+        image: dimahockey/udagram-api-feed:40
+        #command: ['sh','-c','envsubst < /config/credentials > /root/.asw/credentials']
+        command: ["sh","-c","echo '[default]\naws_access_key_id=$AWS_ACCESS_KEY_ID\naws_secret_access_key=$AWS_SECRET_ACCESS_KEY' > /root/.aws/credentials"]        
+        env:
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: aws-secret
+              key: AWS_ACCESS_KEY_ID
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: aws-secret
+              key: AWS_SECRET_ACCESS_KEY
+        volumeMounts:
+        - name: aws-credentials-volume
+          mountPath: /root/.aws        
+      containers:      
       - name: backend-feed
-        image: dimahockey/udagram-api-feed:latest
+        image: dimahockey/udagram-api-feed:40
+        volumeMounts:
+        - name: aws-credentials-volume
+          mountPath: /root/.aws        
         ports:
-        - containerPort: 8080
+        - containerPort: 8080        
         resources:
           requests:
             cpu: "500m"
             memory: "4096Mi"
           limits:
             cpu: "1000m"
-            memory: "8192Mi"                 
+            memory: "8192Mi"
+      volumes:
+        - name: aws-credentials-volume
+          
+          
        
         
       
